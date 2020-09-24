@@ -1,7 +1,7 @@
 // Game State
 
 let player = {
-  x: 750,
+  x: 40,
   y: 350,
 };
 
