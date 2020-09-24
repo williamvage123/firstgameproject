@@ -23,7 +23,7 @@ let obstacleSpeed = 3;
 
 let coinDirectionx = -1;
 let coinDirectiony = -1;
-let coinSpeed = 3;
+let coinSpeed = 4;
 
 
 
@@ -38,12 +38,13 @@ function draw() {
         const movement = 0.5 * deltaTime;
         if (key == 'w') {
             if (player.y > 40) {
-                // move player downwards
+                // move player upwards with limit
                 player.y -= movement;
             }
         }
         else if (key == 's') {
             if (player.y < 700 - 40) {
+                //move player downwards with limit
                 player.y += movement;
             }
         }
@@ -60,26 +61,45 @@ function draw() {
             y: 700 * Math.random(),
         };
       }
+    
+    
     obstacle.x = obstacle.x + (obstacleDirectionx * obstacleSpeed);
     obstacle.y = obstacle.y + (obstacleDirectiony * obstacleSpeed);
-
+    //creates motion for our obstacle
 
     if (obstacle.y < 0) {
         obstacleDirectiony = obstacleDirectiony * -1;
     }
+    //obstacle will bounce off the the top of the screen
     if (obstacle.y > height) {
         obstacleDirectiony = obstacleDirectiony * -1;
     }
+    //obstacle will bounce of the bottom of the screen
 
     coin.x = coin.x + (coinDirectionx * coinSpeed);
     coin.y = coin.y + (coinDirectiony * coinSpeed);
+    //creates motion for our coin
 
     if (coin.y < 0) {
         coinDirectiony = coinDirectiony * -1;
     }
+    //coin will bounce off the the top of the screen
+
     if (coin.y > height) {
         coinDirectiony = coinDirectiony * -1;
     }
+    //coin will bounce of the bottom of the screen
+
+    if (coin.x < 0) {
+        coin = {
+            x: 1500,
+            y: 700 * Math.random(),
+        };
+
+    }
+    //if coin is not collected, it will reset in random starting position
+
+
 
 
 
