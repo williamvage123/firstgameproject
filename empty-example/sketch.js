@@ -29,26 +29,16 @@ function draw() {
   // ==== updating state
   if (keyIsPressed) {
     const movement = 0.5 * deltaTime;
-    if (key == 's') {
-      if (player.y < 700 - 40) {
-        // move player downwards
-        player.y += movement;
-      }
-    }
-    else if (key == 'w') {
+    if (key == 'w') {
       if (player.y > 40) {
-        // move player upwards
+        // move player downwards
         player.y -= movement;
       }
     }
-    else if (key == 'd') {
-      if (player.x < 1500 - 40) {
-        player.x += movement;
+    else if (key == 's') {
+      if (player.y < 700 - 40) {
+        player.y += movement;
       }
-    }
-    else if (key == 'a') {
-      if (player.x > 40)
-        player.x -= movement;
     }
   }
 
