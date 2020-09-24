@@ -1,3 +1,5 @@
+let gameOver = false;
+
 let player = {
     x: 40,
     y: 350,
@@ -14,16 +16,16 @@ let coin = {
 };
 
 let score = 0;
+let lives = 3;
 
-let lives = 5;
 
 let obstacleDirectionx = -1;
 let obstacleDirectiony = -1;
-let obstacleSpeed = 3;
+let obstacleSpeed = 5;
 
 let coinDirectionx = -1;
 let coinDirectiony = -1;
-let coinSpeed = 4;
+let coinSpeed = 5;
 
 
 
@@ -52,17 +54,30 @@ function draw() {
     const distancePlayerCoin = Math.sqrt(
         Math.pow(coin.x - player.x, 2) +
         Math.pow(coin.y - player.y, 2)
-      );
-      if (distancePlayerCoin <= 40 + 25) {
+    );
+    if (distancePlayerCoin <= 40 + 25) {
         // collision between player and Coin!
         score++;
         coin = {
             x: 1500,
             y: 700 * Math.random(),
         };
-      }
-    
-    
+    }
+
+    const distancePlayerObstacle = Math.sqrt(
+        Math.pow(obstacle.x - player.x, 2) +
+        Math.pow(obstacle.y - player.y, 2)
+    );
+    if (distancePlayerObstacle <= 40 + 30) {
+        // collision between player and obstacle!
+        lives--;
+        obstacle = {
+            x: 1500,
+            y: 700 * Math.random(),
+        };
+    }
+
+
     obstacle.x = obstacle.x + (obstacleDirectionx * obstacleSpeed);
     obstacle.y = obstacle.y + (obstacleDirectiony * obstacleSpeed);
     //creates motion for our obstacle
@@ -75,6 +90,13 @@ function draw() {
         obstacleDirectiony = obstacleDirectiony * -1;
     }
     //obstacle will bounce of the bottom of the screen
+    if (obstacle.x < 0) {
+        obstacle = {
+            x: 1500,
+            y: 700 * Math.random(),
+        };
+
+    }
 
     coin.x = coin.x + (coinDirectionx * coinSpeed);
     coin.y = coin.y + (coinDirectiony * coinSpeed);
@@ -98,7 +120,17 @@ function draw() {
 
     }
     //if coin is not collected, it will reset in random starting position
-
+    
+    if (gameOver === true) {
+        score = 0;
+        background = 0;
+        textSize(20);
+        fill(255,0,0);
+        text("Game Over", 4, 2)
+    }
+    if (lives <= 0) {
+       set = gameOver = true;
+    }
 
 
 
