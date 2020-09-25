@@ -18,6 +18,11 @@ let coin = {
     y: 700 * Math.random(),
 };
 
+let monster = {
+    x: 1500,
+    y: 700 * Math.random(),
+}
+
 let score = 0;
 let lives = 3;
 
@@ -30,6 +35,11 @@ let obstacleSpeed = 5;
 let coinDirectionx = -1;
 let coinDirectiony = -1;
 let coinSpeed = 5;
+
+let monsterDirectionx = -1;
+let monsterDirectiony = -1;
+let monsterSpeed = 7;
+
 
 
 
@@ -83,6 +93,17 @@ function draw() {
             y: 700 * Math.random(),
         };
     }
+    const distancePlayerMonster = Math.sqrt(
+        Math.pow(monster.x - player.x, 2) +
+        Math.pow(monster.y - player.y, 2)
+    );
+    if (distancePlayerMonster <= 40+45) {
+        lives = 0;
+        monster = {
+            x: 1500,
+            y: 700 * Math.random(),
+        };
+    }
 
     const distancePlayerObstacle = Math.sqrt(
         Math.pow(obstacle.x - player.x, 2) +
@@ -111,6 +132,7 @@ function draw() {
     }
     //obstacle will bounce of the bottom of the screen
     if (obstacle.x < 0) {
+        
         obstacle = {
             x: 1500,
             y: 700 * Math.random(),
@@ -140,6 +162,27 @@ function draw() {
     }
     //if coin is not collected, it will reset in random starting position
 
+    monster.x = monster.x + (monsterDirectionx * monsterSpeed);
+    monster.y = monster.y + (monsterDirectiony * monsterSpeed);
+// creates motion for our monster
+
+if (monster.y < 0) {
+    monsterDirectiony = monsterDirectiony * -1;
+}
+//monster will bounce off the the top of the screen
+if (monster.y > height-45) {
+   monsterDirectiony = monsterDirectiony * -1;
+}
+//monster will bounce of the bottom of the screen
+if (monster.x < 0) {
+    
+    monster = {
+        x: 1500,
+        y: 700 * Math.random(),
+    };
+}
+
+
   
 
 
@@ -151,7 +194,10 @@ function draw() {
 
 
 
-    background(30);
+    background(30,)
+    
+    fill('gray')
+    rect(monster.x, monster.y, 90, 90);
 
     fill('white');
     circle(player.x, player.y, 80);
