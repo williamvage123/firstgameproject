@@ -1,5 +1,8 @@
 let gameOver = false;
 
+let level = 1;
+
+
 let player = {
     x: 40,
     y: 350,
@@ -8,7 +11,7 @@ let player = {
 let obstacle = {
     x: 1500,
     y: 700 * Math.random(),
-};
+}
 
 let coin = {
     x: 1500,
@@ -17,6 +20,7 @@ let coin = {
 
 let score = 0;
 let lives = 3;
+
 
 
 let obstacleDirectionx = -1;
@@ -32,19 +36,35 @@ let coinSpeed = 5;
 
 function setup() {
     createCanvas(1500, 700);
+
 }
 
 function draw() {
 
+
+
+
+    if (gameOver === true) {
+        score = 0;
+        background = 0;
+        textSize(50);
+        fill(255, 0, 0);
+        text("Game Over", 750, 350)
+    }
+    if (lives <= 0) {
+        gameOver = true;
+    }
+
+
     if (keyIsPressed) {
         const movement = 0.5 * deltaTime;
-        if (key == 'w') {
+        if (key === 'w') {
             if (player.y > 40) {
                 // move player upwards with limit
                 player.y -= movement;
             }
         }
-        else if (key == 's') {
+        else if (key === 's') {
             if (player.y < 700 - 40) {
                 //move player downwards with limit
                 player.y += movement;
@@ -95,7 +115,6 @@ function draw() {
             x: 1500,
             y: 700 * Math.random(),
         };
-
     }
 
     coin.x = coin.x + (coinDirectionx * coinSpeed);
@@ -120,17 +139,9 @@ function draw() {
 
     }
     //if coin is not collected, it will reset in random starting position
-    
-    if (gameOver === true) {
-        score = 0;
-        background = 0;
-        textSize(20);
-        fill(255,0,0);
-        text("Game Over", 4, 2)
-    }
-    if (lives <= 0) {
-       set = gameOver = true;
-    }
+
+  
+
 
 
 
@@ -158,4 +169,7 @@ function draw() {
 
     fill('blue')
     text("Score: " + score, 750, 20)
+
+    fill('rgba(100%,0%,100%,0.5)')
+    text("Level: " + level, 750, 100)
 }
